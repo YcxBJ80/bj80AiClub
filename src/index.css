@@ -1,0 +1,297 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Markdown content styling */
+.markdown-content {
+  @apply text-gray-800 leading-relaxed;
+}
+
+.markdown-content h1 {
+  @apply text-3xl font-bold text-gray-900 mt-8 mb-4 pb-2 border-b border-gray-200;
+}
+
+.markdown-content h2 {
+  @apply text-2xl font-semibold text-gray-900 mt-6 mb-3;
+}
+
+.markdown-content h3 {
+  @apply text-xl font-semibold text-gray-900 mt-5 mb-2;
+}
+
+.markdown-content h4 {
+  @apply text-lg font-semibold text-gray-900 mt-4 mb-2;
+}
+
+.markdown-content p {
+  @apply mb-4 text-gray-700;
+}
+
+.markdown-content ul {
+  @apply list-disc list-inside mb-4 space-y-1;
+}
+
+.markdown-content ol {
+  @apply list-decimal list-inside mb-4 space-y-1;
+}
+
+.markdown-content li {
+  @apply text-gray-700;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-blue-500 pl-4 py-2 mb-4 bg-blue-50 text-gray-700 italic;
+}
+
+.markdown-content code {
+  @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.markdown-content pre {
+  @apply bg-gray-900 text-gray-100 p-4 rounded-lg mb-4 overflow-x-auto;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent text-gray-100 p-0;
+}
+
+.markdown-content table {
+  @apply w-full border-collapse border border-gray-300 mb-4;
+}
+
+.markdown-content th {
+  @apply border border-gray-300 bg-gray-100 px-4 py-2 text-left font-semibold;
+}
+
+.markdown-content td {
+  @apply border border-gray-300 px-4 py-2;
+}
+
+.markdown-content a {
+  @apply text-blue-600 hover:text-blue-800 underline;
+}
+
+.markdown-content img {
+  @apply max-w-full h-auto rounded-lg shadow-sm mb-4;
+}
+
+.markdown-content hr {
+  @apply border-t border-gray-300 my-6;
+}
+
+/* Task lists */
+.markdown-content input[type="checkbox"] {
+  @apply mr-2 accent-blue-600;
+}
+
+.markdown-content li:has(input[type="checkbox"]) {
+  @apply list-none;
+}
+
+/* Footnotes */
+.markdown-content .footnotes {
+  @apply mt-8 pt-4 border-t border-gray-200 text-sm;
+}
+
+.markdown-content .footnotes ol {
+  @apply list-decimal pl-4;
+}
+
+.markdown-content .footnote-ref {
+  @apply text-blue-600 no-underline;
+}
+
+.markdown-content .footnote-backref {
+  @apply text-blue-600 no-underline ml-1;
+}
+
+/* Highlight text (mark) */
+.markdown-content mark {
+  @apply bg-yellow-200 px-1 rounded;
+}
+
+/* Strikethrough */
+.markdown-content del {
+  @apply line-through text-gray-500;
+}
+
+/* Strong and emphasis */
+.markdown-content strong {
+  @apply font-bold text-gray-900;
+}
+
+.markdown-content em {
+  @apply italic;
+}
+
+/* Subscript and superscript */
+.markdown-content sub {
+  @apply text-xs align-sub;
+}
+
+.markdown-content sup {
+  @apply text-xs align-super;
+}
+
+/* Math equations */
+.markdown-content .katex {
+  @apply text-base;
+}
+
+.markdown-content .katex-display {
+  @apply my-4;
+}
+
+/* Nested lists */
+.markdown-content ul ul,
+.markdown-content ol ol,
+.markdown-content ul ol,
+.markdown-content ol ul {
+  @apply ml-4 mt-1 mb-1;
+}
+
+/* Blockquote nesting */
+.markdown-content blockquote blockquote {
+  @apply ml-4 border-l-2 border-gray-400 bg-gray-50;
+}
+
+/* Table alignment */
+.markdown-content th[align="left"],
+.markdown-content td[align="left"] {
+  @apply text-left;
+}
+
+.markdown-content th[align="center"],
+.markdown-content td[align="center"] {
+  @apply text-center;
+}
+
+.markdown-content th[align="right"],
+.markdown-content td[align="right"] {
+  @apply text-right;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Web Editor Markdown Styles */
+.markdown-editor-container {
+  @apply bg-white;
+}
+
+.markdown-editor-container .web-editor-pre {
+  @apply w-full h-full outline-none bg-white p-4 font-mono text-sm leading-relaxed;
+  border: none;
+  resize: none;
+}
+
+.markdown-editor-container .web-editor-pre:empty:before {
+  content: attr(placeholder);
+  @apply text-gray-400;
+}
+
+/* Web Editor Markdown 渲染模式样式 */
+.markdown-editor-container .web-editor-pre h1 {
+  @apply text-3xl font-bold text-gray-900 mt-6 mb-4 pb-2 border-b border-gray-200;
+}
+
+.markdown-editor-container .web-editor-pre h2 {
+  @apply text-2xl font-semibold text-gray-900 mt-5 mb-3;
+}
+
+.markdown-editor-container .web-editor-pre h3 {
+  @apply text-xl font-semibold text-gray-900 mt-4 mb-2;
+}
+
+.markdown-editor-container .web-editor-pre h4 {
+  @apply text-lg font-semibold text-gray-900 mt-3 mb-2;
+}
+
+.markdown-editor-container .web-editor-pre p {
+  @apply mb-3 text-gray-700 leading-relaxed;
+}
+
+.markdown-editor-container .web-editor-pre ul {
+  @apply list-disc list-inside mb-3 space-y-1;
+}
+
+.markdown-editor-container .web-editor-pre ol {
+  @apply list-decimal list-inside mb-3 space-y-1;
+}
+
+.markdown-editor-container .web-editor-pre li {
+  @apply text-gray-700;
+}
+
+.markdown-editor-container .web-editor-pre blockquote {
+  @apply border-l-4 border-blue-500 pl-4 py-2 mb-3 bg-blue-50 text-gray-700 italic;
+}
+
+.markdown-editor-container .web-editor-pre code {
+  @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.markdown-editor-container .web-editor-pre pre {
+  @apply bg-gray-900 text-gray-100 p-4 rounded-lg mb-3 overflow-x-auto;
+}
+
+.markdown-editor-container .web-editor-pre pre code {
+  @apply bg-transparent text-gray-100 p-0;
+}
+
+.markdown-editor-container .web-editor-pre table {
+  @apply w-full border-collapse border border-gray-300 mb-3;
+}
+
+.markdown-editor-container .web-editor-pre th {
+  @apply border border-gray-300 bg-gray-100 px-3 py-2 text-left font-semibold;
+}
+
+.markdown-editor-container .web-editor-pre td {
+  @apply border border-gray-300 px-3 py-2;
+}
+
+.markdown-editor-container .web-editor-pre a {
+  @apply text-blue-600 hover:text-blue-800 underline;
+}
+
+.markdown-editor-container .web-editor-pre img {
+  @apply max-w-full h-auto rounded-lg shadow-sm mb-3;
+}
+
+.markdown-editor-container .web-editor-pre hr {
+  @apply border-t border-gray-300 my-4;
+}
+
+.markdown-editor-container .web-editor-pre strong {
+  @apply font-bold text-gray-900;
+}
+
+.markdown-editor-container .web-editor-pre em {
+  @apply italic;
+}
+
+.markdown-editor-container .web-editor-pre del {
+  @apply line-through text-gray-500;
+}
+
+/* 隐藏markdown标记符号 */
+.markdown-editor-container .marker {
+  display: none;
+}
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
