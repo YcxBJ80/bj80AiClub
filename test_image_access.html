@@ -1,0 +1,70 @@
+开始测试图片访问...
+%E6%88%AA%E5%B1%8F2025-07-22%2010.15.15.png:1  Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin
+test_image_access.html:44 Fetch响应状态: 200 OK
+test_image_access.html:45 响应头: Array(4)
+test_image_access.html:53 ✅ 图片获取成功，大小: 29775 bytes
+test_image_access.html:54 图片类型: image/png
+test_image_access.html:64 ✅ 服务器健康检查成功: Object<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片访问测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test { margin: 20px 0; padding: 10px; border: 1px solid #ddd; }
+        img { max-width: 300px; border: 1px solid #ccc; }
+        .status { margin-top: 10px; font-weight: bold; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>图片访问测试 - 端口2025</h1>
+    
+    <div class="test">
+        <h3>测试1: 直接URL访问</h3>
+        <p>URL: <a href="http://localhost:2025/api/uploads/articles/1753605438797/%E6%88%AA%E5%B1%8F2025-07-22%2010.15.15.png" target="_blank">
+            http://localhost:2025/api/uploads/articles/1753605438797/%E6%88%AA%E5%B1%8F2025-07-22%2010.15.15.png
+        </a></p>
+        <img id="img1" src="http://localhost:2025/api/uploads/articles/1753605438797/%E6%88%AA%E5%B1%8F2025-07-22%2010.15.15.png" 
+             alt="测试图片1"
+             onload="document.getElementById('status1').innerHTML = '✅ 加载成功'; document.getElementById('status1').className = 'status success';"
+             onerror="document.getElementById('status1').innerHTML = '❌ 加载失败'; document.getElementById('status1').className = 'status error';">
+        <div id="status1" class="status">加载中...</div>
+    </div>
+
+    <script>
+        console.log('开始测试图片访问...');
+        
+        // 测试fetch请求
+        fetch('http://localhost:2025/api/uploads/articles/1753605438797/%E6%88%AA%E5%B1%8F2025-07-22%2010.15.15.png')
+            .then(response => {
+                console.log('Fetch响应状态:', response.status, response.statusText);
+                console.log('响应头:', [...response.headers.entries()]);
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            })
+            .then(blob => {
+                console.log('✅ 图片获取成功，大小:', blob.size, 'bytes');
+                console.log('图片类型:', blob.type);
+            })
+            .catch(error => {
+                console.error('❌ 图片获取失败:', error);
+            });
+            
+        // 测试服务器健康检查
+        fetch('http://localhost:2025/api/health')
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ 服务器健康检查成功:', data);
+            })
+            .catch(error => {
+                console.error('❌ 服务器健康检查失败:', error);
+            });
+    </script>
+</body>
+</html>

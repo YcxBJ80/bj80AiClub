@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-image { margin: 20px 0; border: 1px solid #ddd; padding: 10px; }
+        img { max-width: 300px; border: 1px solid #ccc; }
+        .error { color: red; }
+        .success { color: green; }
+        .log { background: #f5f5f5; padding: 10px; margin: 10px 0; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>图片显示测试</h1>
+    
+    <div class="test-image">
+        <h3>测试图片1 - 直接路径（未编码）</h3>
+        <img src="http://localhost:2025/api/uploads/articles/1753603943510/截屏2025-07-21 02.19.27.png" 
+             alt="测试图片1"
+             onload="logResult('图片1', '✅ 加载成功', true)"
+             onerror="logResult('图片1', '❌ 加载失败', false)">
+        <div class="status">加载中...</div>
+    </div>
+    
+    <div class="test-image">
+        <h3>测试图片2 - URL编码路径</h3>
+        <img src="http://localhost:2025/api/uploads/articles/1753603943510/%E6%88%AA%E5%B1%8F2025-07-21%2002.19.27.png" 
+             alt="测试图片2"
+             onload="logResult('图片2', '✅ 加载成功', true)"
+             onerror="logResult('图片2', '❌ 加载失败', false)">
+        <div class="status">加载中...</div>
+    </div>
+    
+    <div class="test-image">
+        <h3>测试图片3 - 相对路径</h3>
+        <img src="/api/uploads/articles/1753603943510/截屏2025-07-21 02.19.27.png" 
+             alt="测试图片3"
+             onload="logResult('图片3', '✅ 加载成功', true)"
+             onerror="logResult('图片3', '❌ 加载失败', false)">
+        <div class="status">加载中...</div>
+    </div>
+
+    <div class="test-image">
+        <h3>测试图片4 - 相对路径（编码）</h3>
+        <img src="/api/uploads/articles/1753603943510/%E6%88%AA%E5%B1%8F2025-07-21%2002.19.27.png" 
+             alt="测试图片4"
+             onload="logResult('图片4', '✅ 加载成功', true)"
+             onerror="logResult('图片4', '❌ 加载失败', false)">
+        <div class="status">加载中...</div>
+    </div>
+
+    <div class="log" id="log">
+        <h3>测试日志：</h3>
+    </div>
+
+    <script>
+        function logResult(name, message, success) {
+            const log = document.getElementById('log');
+            const statusDiv = event.target.nextElementSibling;
+            statusDiv.textContent = message;
+            statusDiv.className = success ? 'success' : 'error';
+            
+            log.innerHTML += `<div>${new Date().toLocaleTimeString()} - ${name}: ${message}</div>`;
+            console.log(`${name}: ${message}`);
+        }
+
+        // 测试API请求
+        async function testApiRequests() {
+            const urls = [
+                'http://localhost:2025/api/uploads/articles/1753603943510/截屏2025-07-21 02.19.27.png',
+                'http://localhost:2025/api/uploads/articles/1753603943510/%E6%88%AA%E5%B1%8F2025-07-21%2002.19.27.png',
+                '/api/uploads/articles/1753603943510/截屏2025-07-21 02.19.27.png',
+                '/api/uploads/articles/1753603943510/%E6%88%AA%E5%B1%8F2025-07-21%2002.19.27.png'
+            ];
+
+            for (let i = 0; i < urls.length; i++) {
+                try {
+                    console.log(`测试URL ${i+1}: ${urls[i]}`);
+                    const response = await fetch(urls[i]);
+                    console.log(`URL ${i+1} 响应状态: ${response.status}`);
+                    console.log(`URL ${i+1} Content-Type: ${response.headers.get('Content-Type')}`);
+                    
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        console.log(`URL ${i+1} 图片大小: ${blob.size} bytes`);
+                        console.log(`URL ${i+1} 图片类型: ${blob.type}`);
+                    }
+                } catch (error) {
+                    console.error(`URL ${i+1} 请求失败:`, error);
+                }
+            }
+        }
+
+        // 页面加载完成后测试API
+        window.onload = function() {
+            setTimeout(testApiRequests, 1000);
+        };
+    </script>
+</body>
+</html>

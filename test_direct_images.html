@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>直接图片测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-image { margin: 20px 0; border: 1px solid #ddd; padding: 10px; }
+        img { max-width: 300px; border: 1px solid #ccc; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>直接图片路径测试</h1>
+    
+    <div class="test-image">
+        <h3>测试1 - 直接中文路径</h3>
+        <img src="http://localhost:2025/api/uploads/articles/1753603943510/截屏2025-07-21 02.19.27.png" 
+             alt="测试图片1"
+             onload="console.log('图片1加载成功'); this.nextElementSibling.textContent = '✅ 加载成功';"
+             onerror="console.log('图片1加载失败'); this.nextElementSibling.textContent = '❌ 加载失败';">
+        <div class="status">加载中...</div>
+    </div>
+    
+    <div class="test-image">
+        <h3>测试2 - URL编码路径</h3>
+        <img src="http://localhost:2025/api/uploads/articles/1753603943510/%E6%88%AA%E5%B1%8F2025-07-21%2002.19.27.png" 
+             alt="测试图片2"
+             onload="console.log('图片2加载成功'); this.nextElementSibling.textContent = '✅ 加载成功';"
+             onerror="console.log('图片2加载失败'); this.nextElementSibling.textContent = '❌ 加载失败';">
+        <div class="status">加载中...</div>
+    </div>
+
+    <script>
+        // 测试API请求
+        console.log('开始测试图片访问...');
+        
+        // 测试直接中文路径
+        fetch('http://localhost:2025/api/uploads/articles/1753603943510/截屏2025-07-21 02.19.27.png')
+            .then(response => {
+                console.log('直接中文路径响应:', response.status, response.statusText);
+                return response.blob();
+            })
+            .then(blob => {
+                console.log('直接中文路径图片大小:', blob.size, 'bytes');
+            })
+            .catch(error => {
+                console.error('直接中文路径请求失败:', error);
+            });
+            
+        // 测试URL编码路径
+        fetch('http://localhost:2025/api/uploads/articles/1753603943510/%E6%88%AA%E5%B1%8F2025-07-21%2002.19.27.png')
+            .then(response => {
+                console.log('URL编码路径响应:', response.status, response.statusText);
+                return response.blob();
+            })
+            .then(blob => {
+                console.log('URL编码路径图片大小:', blob.size, 'bytes');
+            })
+            .catch(error => {
+                console.error('URL编码路径请求失败:', error);
+            });
+    </script>
+</body>
+</html>
